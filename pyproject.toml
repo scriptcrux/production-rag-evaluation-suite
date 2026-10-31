@@ -32,6 +32,16 @@ dev = [
     "flake8>=7.0.0",
 ]
 
+[tool.pyrefly]
+search-path = [
+  ".",
+  "src",
+  "evaluation",
+  "tests",
+  "C:/Users/amanp/.pyenv/pyenv-win/versions/3.10.11/lib/site-packages"
+]
+python-interpreter-path = ".venv/Scripts/python.exe"
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
@@ -42,4 +52,3 @@ markers = [
     "unit: Fast local unit tests",
     "guardrails: Guardrail security and compliance tests",
 ]
-
