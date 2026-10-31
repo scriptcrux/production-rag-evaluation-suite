@@ -1,8 +1,6 @@
 """Primary Financial Analyst Agent: RAG + Memory + Guardrails + Structured Output."""
 
 import json
-import re
-import time
 from typing import List, Optional
 from openai import AsyncOpenAI
 
@@ -17,10 +15,7 @@ from src.domain.models import (
     GuardrailStatus,
     UserQuery,
 )
-from src.guardrails.safety import (
-    MANDATORY_REGULATORY_DISCLAIMER,
-    SecurityGuardrails,
-)
+from src.guardrails.safety import SecurityGuardrails
 from src.memory.conversation import ConversationMemory
 from src.rag.hybrid_retriever import HybridRetriever
 from src.rag.reranker import Reranker

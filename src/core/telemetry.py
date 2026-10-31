@@ -1,9 +1,8 @@
 """Telemetry and SLA cost/latency tracking module for FinSight."""
 
 import time
-from contextlib import asynccontextmanager
-from typing import Dict, Optional
-from pydantic import BaseModel, Field
+from typing import Dict
+from pydantic import BaseModel
 
 # Approximate OpenAI model pricing per 1M tokens (USD)
 PRICING_TABLE = {

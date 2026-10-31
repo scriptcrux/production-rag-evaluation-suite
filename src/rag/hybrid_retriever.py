@@ -8,7 +8,6 @@ from typing import Dict, List, Optional
 import numpy as np
 from rank_bm25 import BM25Okapi
 
-from src.config import settings
 from src.core.exceptions import RetrievalException
 from src.core.logger import get_logger
 from src.domain.models import DocumentChunk

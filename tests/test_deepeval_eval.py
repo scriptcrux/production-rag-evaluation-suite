@@ -16,7 +16,6 @@ from evaluation.metrics_config import (
     get_answer_relevancy_metric,
     get_contextual_precision_metric,
     get_contextual_recall_metric,
-    get_contextual_relevancy_metric,
     get_faithfulness_metric,
     get_financial_rigor_geval,
     get_hallucination_metric,

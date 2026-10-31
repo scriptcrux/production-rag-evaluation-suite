@@ -1,6 +1,6 @@
 """Golden evaluation dataset for FinSight RAG & Agentic LLM pipeline."""
 
-from typing import Any, Dict, List
+from typing import Dict, List
 from pydantic import BaseModel, Field
 
 

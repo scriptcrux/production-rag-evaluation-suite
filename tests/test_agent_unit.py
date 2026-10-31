@@ -2,8 +2,7 @@
 
 import pytest
 from src.agent.financial_analyst import FinancialAnalystAgent
-from src.core.telemetry import calculate_cost, LatencyTracker
-from src.domain.models import UserQuery
+from src.domain.models import DocumentChunk, UserQuery
 from src.guardrails.safety import SecurityGuardrails
 from src.memory.conversation import ConversationMemory
 from src.rag.embeddings import EmbeddingService
@@ -36,7 +35,6 @@ async def test_hybrid_retriever_initialization():
 
 def test_reranker_prioritizes_mda_and_financials():
     """Verify re-ranker boosts Item 7 MD&A sections for numerical queries."""
-    from src.domain.models import DocumentChunk
     reranker = Reranker(top_k=2)
 
     chunks = [

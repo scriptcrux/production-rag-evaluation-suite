@@ -4,7 +4,6 @@ import json
 import logging
 import sys
 import uuid
-from typing import Any, Dict, Optional
 
 
 class StructuredJsonFormatter(logging.Formatter):

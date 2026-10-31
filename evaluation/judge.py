@@ -1,7 +1,6 @@
 """Custom Evaluation Judge for DeepEval metrics supporting both OpenAI and offline deterministic modes."""
 
 import re
-from typing import List, Optional
 from deepeval.models.base_model import DeepEvalBaseLLM
 
 from src.core.logger import get_logger
