@@ -48,3 +48,4 @@ def get_logger(name: str = "finsight") -> logging.Logger:
 def generate_trace_id() -> str:
     """Generates a unique correlation ID for tracking request lifecycle."""
     return f"trace_{uuid.uuid4().hex[:12]}"
+

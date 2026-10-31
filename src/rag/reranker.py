@@ -57,3 +57,4 @@ class Reranker:
         # Sort descending by re-rank score
         scored_candidates.sort(key=lambda x: x.score or 0.0, reverse=True)
         return scored_candidates[: self.top_k]
+

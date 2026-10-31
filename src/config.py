@@ -50,3 +50,4 @@ class Settings(BaseSettings):
 
 # Global singleton settings instance
 settings = Settings()
+

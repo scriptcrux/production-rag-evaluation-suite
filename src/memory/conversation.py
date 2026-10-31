@@ -140,3 +140,4 @@ class ConversationMemory:
 
         logger.info(f"Rule-based rewritten query: '{current_query}' -> '{rewritten}'")
         return rewritten
+

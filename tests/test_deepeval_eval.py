@@ -263,3 +263,4 @@ async def test_eval_regulatory_cross_document(initialized_agent: FinancialAnalys
 
     assert_test(test_case, metrics)
     assert response.telemetry.sla_latency_passed is True
+

@@ -47,3 +47,4 @@ jobs:
           echo "- **Metric Quality Gates**: Faithfulness (>=0.85), Answer Relevancy (>=0.70), Hallucination (<=0.15)" >> $GITHUB_STEP_SUMMARY
           echo "- **SLA Thresholds**: Latency < 4.0s, Cost < $0.03/query" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: Quality gates verified." >> $GITHUB_STEP_SUMMARY
+

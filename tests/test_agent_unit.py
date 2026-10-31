@@ -127,3 +127,4 @@ async def test_agent_end_to_end_analysis():
     assert response.telemetry is not None
     assert response.telemetry.total_latency_ms > 0
     assert "Disclaimer:" in response.regulatory_disclaimer
+

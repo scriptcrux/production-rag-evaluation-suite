@@ -28,3 +28,4 @@ class LLMGenerationException(FinSightException):
 class ContextWindowExceededException(FinSightException):
     """Raised when conversation or document context exceeds prompt capacity."""
     pass
+

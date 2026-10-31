@@ -143,3 +143,4 @@ def get_financial_rigor_geval(threshold: float = 0.80) -> GEval:
         threshold=threshold,
         model=get_evaluation_model(),
     )
+

@@ -62,3 +62,4 @@ class LatencyTracker:
 
     def get(self, stage: str, default: float = 0.0) -> float:
         return self.durations_ms.get(stage, default)
+

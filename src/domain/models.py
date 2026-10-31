@@ -93,3 +93,4 @@ class ConversationTurn(BaseModel):
     agent_response: str
     citations: List[str] = Field(default_factory=list)
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
