@@ -16,13 +16,14 @@ MANDATORY_REGULATORY_DISCLAIMER = (
 
 # Known prompt injection & jailbreak patterns
 PROMPT_INJECTION_PATTERNS = [
-    r"ignore\s+(all\s+)?(previous|prior)\s+instructions",
-    r"system\s+prompt",
+    r"ignore\s+(all\s+)?(previous\s+|prior\s+)?instructions",
+    r"ignore\s+(all\s+)?(guardrails|safety|rules)",
+    r"system\s+(prompt|override)",
     r"jailbreak",
     r"you\s+are\s+now\s+(an?\s+)?unrestricted",
     r"dan\s+mode",
-    r"override\s+safety",
-    r"bypass\s+restrictions",
+    r"override\s+(safety|guardrails)",
+    r"bypass\s+(restrictions|safety|guardrails)",
     r"give\s+me\s+insider\s+trading\s+tips",
     r"guaranteed\s+(return|profit|100%)",
 ]
