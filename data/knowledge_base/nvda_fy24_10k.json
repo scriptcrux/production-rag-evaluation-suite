@@ -1,0 +1,44 @@
+[
+  {
+    "id": "NVDA-FY24-001",
+    "ticker": "NVDA",
+    "company_name": "NVIDIA Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "January 28, 2024",
+    "section": "Item 7: MD&A - Consolidated Financial Results",
+    "content": "For fiscal year 2024 (ended January 28, 2024), NVIDIA reported record revenue of $60.9 billion, up 126% from $27.0 billion in fiscal year 2023. GAAP gross margin expanded substantially to 72.7% from 56.9% in the prior fiscal year, and non-GAAP gross margin reached 73.8% compared to 59.2%. Operating income surged 681% to $33.0 billion, up from $4.2 billion in fiscal year 2023. Net income rose 581% to $29.8 billion, or $11.93 per diluted share, driven by explosive demand for accelerated computing and generative AI platforms worldwide.",
+    "metadata": {
+      "metric_type": "consolidated_financials",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "NVDA-FY24-002",
+    "ticker": "NVDA",
+    "company_name": "NVIDIA Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "January 28, 2024",
+    "section": "Item 7: MD&A - Segment Performance & Data Center Compute",
+    "content": "Compute & Networking segment revenue increased 215% to $47.4 billion. Within this segment, Data Center revenue reached an all-time high of $47.5 billion, up 217% year-over-year, driven by the NVIDIA HGX platform based on the Hopper architecture (including the H100 GPU) alongside InfiniBand networking solutions. Cloud service providers (CSPs) represented more than half of Data Center revenue, with consumer internet companies and enterprise software providers driving remaining demand. Gaming segment revenue was $10.4 billion, up 15% YoY, reflecting normalization of channel inventory and solid demand for GeForce RTX 40 Series GPUs.",
+    "metadata": {
+      "metric_type": "segment_breakdown",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "NVDA-FY24-003",
+    "ticker": "NVDA",
+    "company_name": "NVIDIA Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "January 28, 2024",
+    "section": "Item 1A: Risk Factors - Customer Concentration and Export Controls",
+    "content": "We have high customer concentration: in fiscal year 2024, Customer A accounted for approximately 19% of total revenue, and Customer B represented approximately 11% of total revenue. The loss of, or substantial reduction in purchases by, any major customer could materially harm our revenue and financial condition. Additionally, export licensing regulations enacted by the U.S. Department of Commerce in October 2023 restricted the export of our high-performance A100, A800, H100, H800, and L40S chips to China and certain other designated countries. Sales to China contributed approximately 20% to 25% of Data Center revenue in prior quarters, and our Data Center sales to China dropped substantially following the export rule updates.",
+    "metadata": {
+      "metric_type": "risk_disclosure",
+      "gaap_standard": "SEC_Regulation_SK",
+      "audit_status": "Reported"
+    }
+  }
+]

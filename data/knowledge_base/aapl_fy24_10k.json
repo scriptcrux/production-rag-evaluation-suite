@@ -1,0 +1,44 @@
+[
+  {
+    "id": "AAPL-FY24-001",
+    "ticker": "AAPL",
+    "company_name": "Apple Inc.",
+    "fiscal_year": "FY2024",
+    "period_ended": "September 28, 2024",
+    "section": "Item 7: MD&A - Consolidated Financial Results",
+    "content": "Apple Inc. reported total net sales of $391.0 billion for fiscal year 2024 (ended September 28, 2024), an increase of 2% compared to $383.3 billion in fiscal year 2023. Net income for the year was $93.7 billion, or $6.08 per diluted share, compared to $97.0 billion, or $6.13 per diluted share, in fiscal year 2023, impacted by an income tax charge of $10.2 billion associated with the European General Court's State Aid decision. Gross margin improved to 46.2% compared to 44.1% in the prior year, benefiting from favorable product mix and services revenue growth.",
+    "metadata": {
+      "metric_type": "consolidated_financials",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "AAPL-FY24-002",
+    "ticker": "AAPL",
+    "company_name": "Apple Inc.",
+    "fiscal_year": "FY2024",
+    "period_ended": "September 28, 2024",
+    "section": "Item 7: MD&A - Segment Performance & Services Revenue",
+    "content": "Services segment net sales reached an all-time record of $96.2 billion in fiscal 2024, up 13% from $85.2 billion in fiscal 2023, boasting a gross margin of 74.0%. Growth was driven by advertising, cloud services, and payment services. Total Products revenue was $294.9 billion, down 1% YoY. Specifically, iPhone net sales were $201.2 billion (up 0.3%), Mac net sales were $30.0 billion (up 2%), iPad net sales were $26.7 billion (down 6%), and Wearables, Home and Accessories net sales were $37.0 billion (down 7%). R&D expenditures increased to $31.4 billion, reflecting investments in Apple Intelligence and custom silicon.",
+    "metadata": {
+      "metric_type": "segment_breakdown",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "AAPL-FY24-003",
+    "ticker": "AAPL",
+    "company_name": "Apple Inc.",
+    "fiscal_year": "FY2024",
+    "period_ended": "September 28, 2024",
+    "section": "Item 1A: Risk Factors - Regulatory Pressures and Antitrust Litigation",
+    "content": "The company faces increasing antitrust investigations and regulatory mandates globally, notably under the European Union's Digital Markets Act (DMA). Compliance with the DMA has required the company to alter its App Store policies, including permitting alternative application marketplaces, third-party payment processing mechanisms, and default web browser engine selections in the EU. These mandated changes could reduce our commission revenues, increase compliance costs, and introduce security vulnerabilities for end users. The company is also subject to ongoing antitrust litigation by the U.S. Department of Justice concerning alleged smartphone monopoly practices.",
+    "metadata": {
+      "metric_type": "risk_disclosure",
+      "gaap_standard": "SEC_Regulation_SK",
+      "audit_status": "Reported"
+    }
+  }
+]

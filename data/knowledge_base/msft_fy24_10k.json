@@ -1,0 +1,58 @@
+[
+  {
+    "id": "MSFT-FY24-001",
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "June 30, 2024",
+    "section": "Item 7: Management's Discussion and Analysis (MD&A) - Consolidated Revenue & Profit",
+    "content": "Microsoft Corporation reported total revenue of $245.1 billion for fiscal year 2024 (ended June 30, 2024), representing an increase of 16% (or 15% in constant currency) compared to $211.9 billion in fiscal year 2023. Operating income increased 24% to $109.4 billion compared to $88.5 billion in fiscal year 2023. Net income rose 22% to $88.1 billion, or $11.80 per diluted share, compared to $72.4 billion, or $9.68 per diluted share, in the prior fiscal year. Operating margin expanded to 44.6% driven by disciplined cost management and high-margin cloud services expansion.",
+    "metadata": {
+      "metric_type": "consolidated_financials",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "MSFT-FY24-002",
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "June 30, 2024",
+    "section": "Item 7: MD&A - Segment Performance & Intelligent Cloud",
+    "content": "Intelligent Cloud revenue was $105.4 billion, increasing 19% YoY. Server products and cloud services revenue increased 21%, driven by Azure and other cloud services revenue growth of 30% (31% in constant currency). Azure growth was fueled by accelerated enterprise adoption of Azure AI infrastructure and generative AI developer services, contributing approximately 7 percentage points of growth to Azure in the fourth quarter. Productivity and Business Processes revenue was $77.3 billion, up 12%, driven by Office 365 Commercial revenue growth of 14%. More Personal Computing revenue reached $62.5 billion, up 15%, which included the acquisition of Activision Blizzard, Inc.",
+    "metadata": {
+      "metric_type": "segment_breakdown",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "MSFT-FY24-003",
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "June 30, 2024",
+    "section": "Item 7: MD&A - Capital Expenditures & Cash Flow",
+    "content": "Capital expenditures including assets acquired under finance leases were $55.7 billion for fiscal year 2024, compared with $31.9 billion in fiscal year 2023. This substantial 75% increase in capital expenditures reflects accelerated investments in global cloud datacenters, network infrastructure, and specialized AI accelerators (GPUs) to support unprecedented customer demand for cloud and AI offerings. Cash flow from operations was $118.5 billion, an increase of 35% compared to $87.6 billion in fiscal year 2023. Free cash flow was $74.1 billion, reflecting an increase of 24% YoY despite higher capital spending.",
+    "metadata": {
+      "metric_type": "cash_flow_capex",
+      "gaap_standard": "US-GAAP",
+      "audit_status": "Audited"
+    }
+  },
+  {
+    "id": "MSFT-FY24-004",
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "fiscal_year": "FY2024",
+    "period_ended": "June 30, 2024",
+    "section": "Item 1A: Risk Factors - AI Infrastructure, Power, & Environmental Constraints",
+    "content": "Our AI and cloud expansion depends significantly on securing sufficient datacenter capacity, electrical power grid interconnects, water for cooling systems, and specialized semiconductor components (such as GPUs and high-bandwidth memory). Delays in power utility grid connections, supply chain bottlenecks for server racks, or constraints on electric power availability could limit our ability to deploy AI models at scale, potentially impairing our operating results and competitive positioning. Furthermore, intense computational requirements for AI increase greenhouse gas emissions and water consumption, presenting challenges to achieving our corporate carbon-negative and water-positive commitments.",
+    "metadata": {
+      "metric_type": "risk_disclosure",
+      "gaap_standard": "SEC_Regulation_SK",
+      "audit_status": "Reported"
+    }
+  }
+]

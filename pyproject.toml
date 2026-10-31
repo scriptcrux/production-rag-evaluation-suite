@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finsight-enterprise-rag"
+version = "1.0.0"
+description = "Production-grade Financial RAG & Agentic AI system with automated DeepEval evaluation pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Senior AI Engineer" }
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "openai>=1.12.0",
+    "deepeval>=3.0.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "rank-bm25>=0.2.2",
+    "numpy>=1.24.0",
+    "rich>=13.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=4.1.0",
+    "black>=24.0.0",
+    "isort>=5.13.0",
+    "flake8>=7.0.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+markers = [
+    "eval: DeepEval evaluation tests for CI/CD",
+    "unit: Fast local unit tests",
+    "guardrails: Guardrail security and compliance tests",
+]
