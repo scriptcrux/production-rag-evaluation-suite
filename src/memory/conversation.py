@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from openai import AsyncOpenAI
+from openai.types.chat import ChatCompletionMessageParam
 
 from src.config import settings
 from src.core.logger import get_logger
@@ -94,9 +95,10 @@ class ConversationMemory:
                     f"Follow-up: {current_query}\n"
                     "Rewritten Query:"
                 )
+                messages: List[ChatCompletionMessageParam] = [{"role": "user", "content": prompt}]
                 response = await self._client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt}],
+                    messages=messages,
                     temperature=0.0,
                     max_tokens=60,
                 )

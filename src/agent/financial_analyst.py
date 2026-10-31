@@ -3,6 +3,7 @@
 import json
 from typing import List, Optional
 from openai import AsyncOpenAI
+from openai.types.chat import ChatCompletionMessageParam
 
 from src.config import settings
 from src.core.exceptions import LLMGenerationException
@@ -202,7 +203,7 @@ class FinancialAnalystAgent:
         )
         schema_json = FinancialAnalystResponse.model_json_schema()
 
-        messages = [
+        messages: List[ChatCompletionMessageParam] = [
             {"role": "system", "content": f"{SYSTEM_PROMPT}\n\nYou must return a JSON object conforming to schema:\n{json.dumps(schema_json)}"},
             {
                 "role": "user",
