@@ -218,7 +218,7 @@ class FinancialAnalystAgent:
             response_format={"type": "json_object"},
         )
 
-        raw_json = response.choices[0].message.content
+        raw_json = response.choices[0].message.content or "{}"
         data = json.loads(raw_json)
         data["regulatory_disclaimer"] = self.guardrails.get_disclaimer()
         data["guardrail_status"] = guardrail_status.model_dump()

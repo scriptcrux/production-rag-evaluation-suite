@@ -1,8 +1,11 @@
 """Domain-specific exceptions for FinSight Enterprise System."""
 
+from typing import Any, Dict, Optional
+
+
 class FinSightException(Exception):
     """Base exception for all FinSight system errors."""
-    def __init__(self, message: str, details: dict = None):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(message)
         self.message = message
         self.details = details or {}
@@ -10,7 +13,7 @@ class FinSightException(Exception):
 
 class GuardrailViolationException(FinSightException):
     """Raised when an input or output fails security/compliance guardrails."""
-    def __init__(self, violation_type: str, details: dict = None):
+    def __init__(self, violation_type: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"Guardrail check failed: {violation_type}", details)
         self.violation_type = violation_type
 
@@ -28,4 +31,3 @@ class LLMGenerationException(FinSightException):
 class ContextWindowExceededException(FinSightException):
     """Raised when conversation or document context exceeds prompt capacity."""
     pass
-

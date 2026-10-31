@@ -8,11 +8,14 @@ os.environ["PYTHONIOENCODING"] = "utf-8"
 os.environ["PYTHONUTF8"] = "1"
 
 if sys.platform == "win32":
-    try:
-        sys.stdout.reconfigure(encoding="utf-8")
-        sys.stderr.reconfigure(encoding="utf-8")
-    except Exception:
-        pass
+    for _stream_name in ("stdout", "stderr"):
+        _stream = getattr(sys, _stream_name, None)
+        _reconfig = getattr(_stream, "reconfigure", None)
+        if callable(_reconfig):
+            try:
+                _reconfig(encoding="utf-8")
+            except Exception:
+                pass
 
     # Monkey-patch Rich's legacy Windows console writer to prevent charmap UnicodeEncodeErrors
     try:

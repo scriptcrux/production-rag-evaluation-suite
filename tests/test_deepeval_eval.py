@@ -112,6 +112,7 @@ async def test_eval_risk_compliance_analysis(initialized_agent: FinancialAnalyst
     assert_test(test_case, metrics)
 
     # Cost & Latency SLA assertions
+    assert response.telemetry is not None
     assert response.telemetry.sla_latency_passed is True
     assert response.telemetry.sla_cost_passed is True
 
@@ -261,5 +262,6 @@ async def test_eval_regulatory_cross_document(initialized_agent: FinancialAnalys
     ]
 
     assert_test(test_case, metrics)
+    assert response.telemetry is not None
     assert response.telemetry.sla_latency_passed is True
 

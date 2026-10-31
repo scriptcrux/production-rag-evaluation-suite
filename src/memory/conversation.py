@@ -100,7 +100,8 @@ class ConversationMemory:
                     temperature=0.0,
                     max_tokens=60,
                 )
-                rewritten = response.choices[0].message.content.strip().strip('"')
+                content = response.choices[0].message.content or ""
+                rewritten = content.strip().strip('"')
                 logger.info(f"LLM rewritten query: '{current_query}' -> '{rewritten}'")
                 return rewritten
             except Exception as e:

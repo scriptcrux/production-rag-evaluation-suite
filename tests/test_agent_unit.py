@@ -62,7 +62,9 @@ def test_reranker_prioritizes_mda_and_financials():
 
     reranked = reranker.rerank("What was Azure revenue growth?", chunks)
     assert reranked[0].id == "DOC-2"
-    assert reranked[0].score > reranked[1].score
+    score_0 = reranked[0].score or 0.0
+    score_1 = reranked[1].score or 0.0
+    assert score_0 > score_1
 
 
 @pytest.mark.asyncio

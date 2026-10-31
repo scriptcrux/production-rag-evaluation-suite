@@ -90,7 +90,7 @@ class HybridRetriever:
         if not self._is_indexed:
             await self.initialize()
 
-        if not self.documents:
+        if not self.documents or self.bm25 is None or self.doc_embeddings is None:
             return []
 
         # Step 1: BM25 Sparse Search

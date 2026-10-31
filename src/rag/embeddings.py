@@ -20,7 +20,7 @@ class EmbeddingService:
     testing and CI environments.
     """
 
-    def __init__(self, api_key: Optional[str] = None, model: str = None):
+    def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or settings.openai_api_key
         self.model = model or settings.openai_embedding_model
         self.dim = 1536
