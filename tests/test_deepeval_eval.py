@@ -160,6 +160,8 @@ async def test_eval_multi_turn_coreference(initialized_agent: FinancialAnalystAg
     ]
 
     assert_test(test_case, metrics)
+    assert response.telemetry is not None
+    assert response.telemetry.sla_latency_passed is True
 
 
 @pytest.mark.asyncio

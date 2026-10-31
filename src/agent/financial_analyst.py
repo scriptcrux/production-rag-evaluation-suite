@@ -4,6 +4,7 @@ import json
 from typing import List, Optional
 from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletionMessageParam
+from openai.types.shared_params import ResponseFormatJSONObject
 
 from src.config import settings
 from src.core.exceptions import LLMGenerationException
@@ -216,11 +217,12 @@ class FinancialAnalystAgent:
             },
         ]
 
+        response_fmt: ResponseFormatJSONObject = {"type": "json_object"}
         response = await self._client.chat.completions.create(
             model=self.model_name,
             messages=messages,
             temperature=settings.llm_temperature,
-            response_format={"type": "json_object"},
+            response_format=response_fmt,
         )
 
         raw_json = response.choices[0].message.content or "{}"
