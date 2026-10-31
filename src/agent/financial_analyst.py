@@ -5,6 +5,7 @@ from typing import List, Optional
 from openai import AsyncOpenAI
 
 from src.config import settings
+from src.core.exceptions import LLMGenerationException
 from src.core.logger import get_logger, generate_trace_id
 from src.core.telemetry import ExecutionTelemetry, LatencyTracker, calculate_cost
 from src.domain.models import (
@@ -192,6 +193,9 @@ class FinancialAnalystAgent:
         guardrail_status: GuardrailStatus,
     ) -> FinancialAnalystResponse:
         """Invokes OpenAI with strict JSON output formatting."""
+        if self._client is None:
+            raise LLMGenerationException("OpenAI client is not initialized")
+
         context_text = "\n\n".join(
             f"--- Document Chunk [{c.id}] ({c.ticker} - {c.section}) ---\n{c.content}"
             for c in chunks

@@ -2,7 +2,7 @@
 
 import re
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from openai import AsyncOpenAI
 
@@ -50,7 +50,7 @@ class ConversationMemory:
             rewritten_query=rewritten_query,
             agent_response=agent_response,
             citations=citations or [],
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
         )
         self.sessions[session_id].append(turn)
 

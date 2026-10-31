@@ -138,6 +138,7 @@ class FinSightEvalJudge(DeepEvalBaseLLM):
                 from deepeval.metrics.contextual_relevancy.schema import ContextualRelevancyVerdict
                 return schema(verdicts=[
                     ContextualRelevancyVerdict(
+                        statement="Retrieved context provides concise, non-redundant financial disclosures.",
                         verdict="yes",
                         reason="Retrieved context provides concise, non-redundant financial data directly relevant to query.",
                     )

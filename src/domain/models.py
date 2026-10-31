@@ -1,6 +1,6 @@
 """Pydantic domain models and schemas for FinSight Enterprise System."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 from src.core.telemetry import ExecutionTelemetry
@@ -92,5 +92,5 @@ class ConversationTurn(BaseModel):
     rewritten_query: Optional[str] = None
     agent_response: str
     citations: List[str] = Field(default_factory=list)
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
