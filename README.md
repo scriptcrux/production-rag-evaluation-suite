@@ -1,6 +1,7 @@
 # FinSight: Enterprise Financial Due Diligence RAG & DeepEval Quality Framework
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-StateGraph%20Workflow-blueviolet.svg)](https://github.com/langchain-ai/langgraph)
 [![DeepEval Version](https://img.shields.io/badge/deepeval-3.7.5-orange.svg)](https://github.com/confident-ai/deepeval)
 [![Pydantic](https://img.shields.io/badge/pydantic-v2.12-green.svg)](https://docs.pydantic.dev/)
 [![Evaluation Pass Rate](https://img.shields.io/badge/DeepEval%20Benchmark-100%25%20Passed-brightgreen.svg)](#evaluation-results)
@@ -20,17 +21,18 @@ flowchart TD
         B --> D["Dense Vector Index<br/>(1536-dim Embeddings)"]
     end
 
-    subgraph Runtime ["2. Agentic Runtime & RAG Pipeline"]
-        U["User Inquiry"] --> G1{"Input Guardrails<br/>(PII & Injection)"}
-        G1 -- Policy Violation --> R1["Safe Refusal Notice"]
-        G1 -- Safe Prompt --> M["Conversation Memory &<br/>Coreference Rewriter"]
-        M --> H["Hybrid Retrieval Engine<br/>Reciprocal Rank Fusion (RRF, k=60)"]
+    subgraph Runtime ["2. LangGraph Stateful Agent Runtime & Hybrid RAG"]
+        U["User Inquiry"] --> G1{"node_guardrail_check<br/>(PII & Injection)"}
+        G1 -- Injection Detected --> R1["node_safety_rejection<br/>(Short-circuit Refusal)"]
+        G1 -- Safe Prompt --> M["node_query_rewriting<br/>(Coreference Resolution)"]
+        M --> H["node_hybrid_retrieval<br/>(Dense + BM25 RRF, k=60)"]
         C -.-> H
         D -.-> H
-        H --> RR["Cross-Encoder / Context Reranker"]
-        RR --> LLM["LLM Synthesis Engine<br/>(Structured Pydantic v2 Schema)"]
-        LLM --> G2["Output Compliance &<br/>SEC Legal Disclaimer"]
-        G2 --> Out["FinancialAnalystResponse<br/>(JSON + Citations + Telemetry)"]
+        H --> RR["node_reranking<br/>(SEC Item Authority Boost)"]
+        RR --> LLM["node_synthesis<br/>(Pydantic v2 JSON Schema)"]
+        LLM --> TM["node_telemetry_and_memory<br/>(Cost/SLA & Memory Turn)"]
+        R1 --> END_G(["END"]):::terminal
+        TM --> END_G
     end
 
     subgraph CI ["3. DeepEval Automated CI/CD Harness"]
@@ -50,6 +52,7 @@ flowchart TD
 ## Key Features
 
 ### Phase 1: Core Application Architecture
+- **LangGraph Stateful Orchestration**: Built on LangGraph (`StateGraph`), the industry-standard cyclic state machine for enterprise AI. Features type-safe `AgentState`, conditional safety routing that short-circuits malicious prompt injections, and built-in Mermaid diagram export.
 - **Hybrid Retrieval with Reciprocal Rank Fusion (RRF)**: Combines dense vector similarity with sparse BM25 keyword matching using the gold-standard formula:
   $$\text{RRF}(d) = \frac{\alpha}{k + \text{rank}_{\text{dense}}(d)} + \frac{1 - \alpha}{k + \text{rank}_{\text{sparse}}(d)} \quad (k=60)$$
 - **Fine-Grained Context Re-ranking**: Prioritizes authoritative sections (Item 7 MD&A, Item 8 Financial Statements) and penalizes noise chunks to minimize context distraction.

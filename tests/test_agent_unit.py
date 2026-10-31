@@ -128,3 +128,18 @@ async def test_agent_end_to_end_analysis():
     assert response.telemetry.total_latency_ms > 0
     assert "Disclaimer:" in response.regulatory_disclaimer
 
+
+def test_langgraph_workflow_structure_and_mermaid():
+    """Verify that the agent's workflow is powered by a compiled LangGraph with valid nodes and Mermaid export."""
+    agent = FinancialAnalystAgent()
+    mermaid_diagram = agent.get_graph_mermaid()
+
+    assert "node_guardrail_check" in mermaid_diagram
+    assert "node_safety_rejection" in mermaid_diagram
+    assert "node_query_rewriting" in mermaid_diagram
+    assert "node_hybrid_retrieval" in mermaid_diagram
+    assert "node_reranking" in mermaid_diagram
+    assert "node_synthesis" in mermaid_diagram
+    assert "node_telemetry_and_memory" in mermaid_diagram
+    assert "graph TD" in mermaid_diagram
+

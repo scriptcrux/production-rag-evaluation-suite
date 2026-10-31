@@ -22,6 +22,7 @@ from src.guardrails.safety import SecurityGuardrails
 from src.memory.conversation import ConversationMemory
 from src.rag.hybrid_retriever import HybridRetriever
 from src.rag.reranker import Reranker
+from src.agent.graph import build_financial_analyst_graph, AgentState
 
 logger = get_logger(__name__)
 
@@ -62,130 +63,37 @@ class FinancialAnalystAgent:
             except Exception:
                 self._client = None
 
+        # Compile the LangGraph stateful execution graph
+        self.graph = build_financial_analyst_graph(self)
+
     async def initialize(self):
         """Pre-indexes retriever and warm-boots system."""
         await self.retriever.initialize()
 
+    def get_graph_mermaid(self) -> str:
+        """Returns the Mermaid diagram string of the compiled LangGraph workflow."""
+        return self.graph.get_graph().draw_mermaid()
+
     async def analyze(self, query: UserQuery) -> FinancialAnalystResponse:
-        """Processes user query end-to-end through guardrails, memory, hybrid RAG, and LLM."""
+        """Processes user query end-to-end through the LangGraph state machine."""
         trace_id = generate_trace_id()
         tracker = LatencyTracker()
         tracker.start("total")
 
         logger.info(f"[{trace_id}] Received query: '{query.text}' | session: '{query.session_id}'")
 
-        # Step 1: Input Guardrails & Sanitization
-        sanitized_input, guardrail_status = self.guardrails.validate_input(query.text)
+        initial_state: AgentState = {
+            "trace_id": trace_id,
+            "query": query,
+            "tracker": tracker,
+        }
 
-        # Handle detected security / adversarial injection
-        if guardrail_status.prompt_injection_detected:
-            tracker.stop("total")
-            telemetry = ExecutionTelemetry(
-                trace_id=trace_id,
-                total_latency_ms=tracker.get("total"),
-                prompt_tokens=len(query.text.split()),
-                completion_tokens=40,
-                total_tokens=len(query.text.split()) + 40,
-                estimated_cost_usd=0.00001,
-                model_used=self.model_name,
-                sla_latency_passed=True,
-                sla_cost_passed=True,
-            )
-            return FinancialAnalystResponse(
-                executive_summary="Security alert: The query was flagged for adversarial or policy-violating patterns. Request declined in accordance with SEC compliance and AI governance safety policies.",
-                financial_metrics=[],
-                risk_assessment=["Adversarial prompt injection attempt intercepted by security guardrails."],
-                citations=[],
-                confidence_score=0.0,
-                regulatory_disclaimer=self.guardrails.get_disclaimer(),
-                guardrail_status=guardrail_status,
-                telemetry=telemetry,
-            )
+        final_state = await self.graph.ainvoke(initial_state)
+        response = final_state.get("response")
+        if not response:
+            raise LLMGenerationException("LangGraph execution completed without producing a valid response.")
 
-        # Step 2: Multi-Turn Conversation Memory & Query Rewriting
-        tracker.start("memory_rewrite")
-        rewritten_query = await self.memory.rewrite_query(query.session_id, sanitized_input)
-        tracker.stop("memory_rewrite")
-
-        # Step 3: Hybrid Retrieval & Re-ranking
-        tracker.start("retrieval")
-        candidates = await self.retriever.retrieve(
-            query=rewritten_query,
-            top_k=settings.dense_top_k,
-            ticker_filter=query.ticker_filter,
-            fiscal_year_filter=query.fiscal_year_filter,
-        )
-        reranked_chunks = self.reranker.rerank(rewritten_query, candidates)
-        retrieval_latency = tracker.stop("retrieval")
-
-        # Step 4: LLM Synthesis or Deterministic Fallback Generation
-        tracker.start("llm")
-        prompt_tokens_est = 250 + sum(len(c.content.split()) for c in reranked_chunks)
-        completion_tokens_est = 180
-
-        response_obj: FinancialAnalystResponse
-        if self._client:
-            try:
-                response_obj = await self._generate_with_openai(
-                    original_query=query.text,
-                    rewritten_query=rewritten_query,
-                    chunks=reranked_chunks,
-                    guardrail_status=guardrail_status,
-                )
-            except Exception as e:
-                logger.warning(f"[{trace_id}] OpenAI generation failed: {e}. Falling back to deterministic engine.")
-                response_obj = self._generate_deterministic(
-                    original_query=query.text,
-                    rewritten_query=rewritten_query,
-                    chunks=reranked_chunks,
-                    guardrail_status=guardrail_status,
-                )
-        else:
-            response_obj = self._generate_deterministic(
-                original_query=query.text,
-                rewritten_query=rewritten_query,
-                chunks=reranked_chunks,
-                guardrail_status=guardrail_status,
-            )
-
-        llm_latency = tracker.stop("llm")
-        total_latency = tracker.stop("total")
-
-        # Step 5: Telemetry, SLA constraints, and Memory Persistence
-        cost_usd = calculate_cost(
-            model=self.model_name,
-            prompt_tokens=prompt_tokens_est,
-            completion_tokens=completion_tokens_est,
-        )
-
-        telemetry = ExecutionTelemetry(
-            trace_id=trace_id,
-            retrieval_latency_ms=retrieval_latency,
-            llm_latency_ms=llm_latency,
-            total_latency_ms=total_latency,
-            prompt_tokens=prompt_tokens_est,
-            completion_tokens=completion_tokens_est,
-            total_tokens=prompt_tokens_est + completion_tokens_est,
-            estimated_cost_usd=cost_usd,
-            model_used=self.model_name,
-            sla_latency_passed=(total_latency / 1000.0) <= settings.max_latency_seconds,
-            sla_cost_passed=cost_usd <= settings.max_query_cost_usd,
-        )
-        response_obj.telemetry = telemetry
-
-        # Update multi-turn memory
-        self.memory.add_turn(
-            session_id=query.session_id,
-            user_query=query.text,
-            agent_response=response_obj.executive_summary,
-            rewritten_query=rewritten_query,
-            citations=[c.chunk_id for c in response_obj.citations],
-        )
-
-        logger.info(
-            f"[{trace_id}] Completed analysis in {total_latency:.1f}ms (cost: ${cost_usd:.5f}, confidence: {response_obj.confidence_score})"
-        )
-        return response_obj
+        return response
 
     async def _generate_with_openai(
         self,
